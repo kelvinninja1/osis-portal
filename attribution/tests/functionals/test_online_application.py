@@ -201,9 +201,17 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
 
 
     def assert_contains_message(self, msg_output, id_message):
-        self.assertIn(_(id_message), msg_output)
-        # assert(msg_output.find(_('{}'.format(id_message))) > 0)
-        print('Message verifié : "{}"'.format(msg_output))
+        print('Message verifié : "{}"'.format(_(id_message)))
+        messr =str(_(id_message))
+        messr = messr.replace('(', '')
+        messr = messr.replace(')', '')
+        msg_output = str(msg_output).replace('(', '')
+        msg_output = str(msg_output).replace(')', '')
+        if len(messr) > len(msg_output):
+            self.assertIn(msg_output.lower(), messr.lower())
+        else:
+            self.assertIn(messr.lower(), msg_output.lower())
+
 
     def print_not_supported_value(self, value, error_message):
         print('Donnée invalide rejetée est : "{}" et le message de rejet est : "{}"'.format(value,
@@ -289,29 +297,36 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.open_browser_and_log_on_user('login', user)
         print("connected to : {}".format(self.driver.current_url))
         self.goto('applications_overview')
-        time.sleep(3)
+        element_online_appl = self.driver.find_elements_by_xpath('/ html / body / div[2] / h1')
+        self.assertEquals(element_online_appl[0].text, 'Mes candidatures')
         self.click_on("lnk_submit_attribution_new")
         self.save_screen(folder_name, name_img_screen, counter_img, ext)
+
+        element_online_appl = self.driver.find_elements_by_xpath('// *[ @ id = "pnl_charges"] / div[1]')
+        self.assertEquals(element_online_appl[0].text,'Cours vacant')
+        #tester si on est sur la bonne page
+
 
         for counter in range(0, 4):
             learning_unit_year_test = learning_unit_dict[counter]
             self.fill_by_id("id_learning_container_acronym", learning_unit_year_test.acronym)
             self.click_on("bt_submit_vacant_attributions_search")
-            time.sleep(2)
             if counter == 3:
                 alert_element = self.driver.find_element_by_css_selector("#pnl_charges > div.panel-body > div.alert.alert-info")
                 not_found_message = alert_element.text
                 self.assert_same_message(not_found_message, 'no_activity')
             else:
                 element_submit = self.driver.find_elements_by_id('lnk_submit_attribution_new')
+                el = self.driver.find_element_by_xpath(
+                    '// *[ @ id = "pnl_charges"] / div[2] / table / tbody / tr / td[1] / a')
+                self.assertEquals(el.text, learning_unit_year_test.acronym)
                 self.assert_same_message(element_submit[0].text, 'create_an_tutor_application')
-                time.sleep(2)
+            time.sleep(3)
 
         #tester si on met rien
         element_input =self.driver.find_element_by_id('id_learning_container_acronym')
         element_input.clear()
         self.click_on("bt_submit_vacant_attributions_search")
-        time.sleep(3)
         element_message = self.driver.find_element_by_css_selector ('#pnl_charges > div.panel-body > div > form > div.col-md-10 > p')
         self.assert_same_message(element_message.text, 'lu_search_explanation')
         time.sleep(3)
@@ -322,9 +337,14 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.fill_by_id("id_learning_container_acronym", learning_unit_year_test.acronym)
         self.click_on("bt_submit_vacant_attributions_search")
         self.click_on("lnk_submit_attribution_new")
+        el = self.driver.find_element_by_xpath('//*[@id="pnl_application_form"]/div[2]/form/div[1]/div[1]')
+        pos = el.text.find('\n')+len('\n')
+        self.assertEquals(el.text[pos:len(el.text)], learning_unit_year_test.acronym)
+
         #tester d'abord le bouton "annuler"
 
         self.driver.find_element_by_link_text('Annuler').click()
+
         counter_img += 1
         self.save_screen(folder_name, name_img_screen, counter_img, ext)
         #retour à la nouvelle candidature pour un nouveau cours
@@ -364,7 +384,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.assert_same_message(element_error_02.text, 'Ensure this value is greater than or equal to {min_value}.',
                                  min_value=0)
 
-        self.print_not_supported_value(volume_practical_asked,element_error_02.text)
+        self.print_not_supported_value(volume_practical_asked, element_error_02.text)
 
         volume_lecturing_asked = -10
         volume_practical_asked = "abc"
@@ -400,9 +420,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
 
         element_error_01 = self.driver.find_element_by_css_selector(
             "#pnl_application_form > div.panel-body > form > div:nth-child(6) > div:nth-child(1) > span")
-        #self.assert_same_message(element_error_01.text,
-        #                         'Ensure that there are no more than {max_decimal_places} decimal places.',
-        #                         max_decimal_places=1)
+
         self.print_not_supported_value(volume_lecturing_asked, element_error_01.text)
 
         element_error_02 = self.driver.find_element_by_css_selector(
@@ -418,9 +436,19 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
 
         self.fill_by_id("id_charge_practical_asked", volume_practical_asked)
         self.click_on("bt_submit")
+
+        el = self.driver.find_element_by_xpath('// *[ @ id = "pnl_applications"] / div[1]')
+
+        next_year = (next_academic_year.year + 1) % 100
+        text_check = 'Mes candidatures {}-{}'.format(next_academic_year.year, next_year)
+        print(text_check)
+        self.assertEquals(el.text, text_check)
+        el = self.driver.find_element_by_css_selector('#pnl_applications > div.panel-body > table > tbody > tr > td:nth-child(1) > span:nth-child(1)')
+        self.assertEquals(el.text, learning_unit_year_test.acronym)
+
         counter_img += 1
         self.save_screen(folder_name, name_img_screen, counter_img, ext)
-        time.sleep(2)
+
 
         tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, next_academic_year.year)
 
