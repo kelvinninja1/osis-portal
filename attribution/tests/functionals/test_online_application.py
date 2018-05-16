@@ -298,11 +298,10 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         else:
             self.assertIn(messr.lower(), msg_output.lower())
 
-
     def print_not_supported_value(self, value, error_message):
-        print('Donnée invalide rejetée est : "{}" et le message de rejet est : "{}"'.format(value,
-                                                                                            error_message))
-    def test_01(self):
+        print('Donnée invalide rejetée est : "{}" et le message de rejet est : "{}"'.format(value, error_message))
+
+    def test_on_line_application(self):
 
         self.open_browser_and_log_on_user('login', self.user)
         print("connected to : {}".format(self.driver.current_url))
@@ -311,11 +310,11 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.assertEquals(element_online_appl[0].text, 'Mes candidatures')
         self.click_on("lnk_submit_attribution_new")
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-
+        '''
+        tester si on est sur la bonne page : présenct du texte "Cours vacant"
+        '''
         element_online_appl = self.driver.find_elements_by_xpath('// *[ @ id = "pnl_charges"] / div[1]')
-        self.assertEquals(element_online_appl[0].text,'Cours vacant')
-        #tester si on est sur la bonne page
-
+        self.assertEquals(element_online_appl[0].text, 'Cours vacant')
 
         for counter in range(0, 4):
             learning_unit_year_test = self.learning_unit_dict[counter]
@@ -333,15 +332,18 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
                 self.assert_same_message(element_submit[0].text, 'create_an_tutor_application')
             time.sleep(3)
 
-        #tester si on met rien
-        element_input =self.driver.find_element_by_id('id_learning_container_acronym')
+        '''
+        tester si on ne met rien
+        '''
+        element_input = self.driver.find_element_by_id('id_learning_container_acronym')
         element_input.clear()
         self.click_on("bt_submit_vacant_attributions_search")
         element_message = self.driver.find_element_by_css_selector ('#pnl_charges > div.panel-body > div > form > div.col-md-10 > p')
         self.assert_same_message(element_message.text, 'lu_search_explanation')
-        time.sleep(3)
 
-        # postuler sur le premier cours
+        '''
+         postuler sur le premier cours
+        '''
         ue_key = 2
         learning_unit_year_test = self.learning_unit_dict[ue_key]
         self.fill_by_id("id_learning_container_acronym", learning_unit_year_test.acronym)
@@ -349,16 +351,17 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.click_on("lnk_submit_attribution_new")
         el = self.driver.find_element_by_xpath('//*[@id="pnl_application_form"]/div[2]/form/div[1]/div[1]')
         pos = el.text.find('\n')+len('\n')
+        print('--- {}'.format(el.text[pos:len(el.text)]))
         self.assertEquals(el.text[pos:len(el.text)], learning_unit_year_test.acronym)
-
-        #tester d'abord le bouton "annuler"
-
+        '''
+        tester d'abord le bouton "annuler"
+        '''
         self.driver.find_element_by_link_text('Annuler').click()
-
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-        #retour à la nouvelle candidature pour un nouveau cours
-
+        '''
+          retour à la nouvelle candidature pour un nouveau cours
+        '''
         self.click_on("lnk_submit_attribution_new")
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
@@ -371,6 +374,10 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
         self.click_on("lnk_submit_attribution_new")
 
+        '''
+           Tester les inputs 
+           une chaine de caractères, un nombre < 0
+        '''
         volume_lecturing_asked = "aba"
         volume_practical_asked = -10
         id_element_lecturing_asked = "id_charge_lecturing_asked"
@@ -385,17 +392,17 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
 
         element_error_01 = self.driver.find_element_by_css_selector(
             "#pnl_application_form > div.panel-body > form > div:nth-child(7) > div:nth-child(1) > span")
-        self.assert_same_message(element_error_01.text,'Enter a number.')
+        self.assert_same_message(element_error_01.text, 'Enter a number.')
 
-        self.print_not_supported_value(volume_lecturing_asked,element_error_01.text)
-
+        self.print_not_supported_value(volume_lecturing_asked, element_error_01.text)
         element_error_02 = self.driver.find_element_by_css_selector(
             "#pnl_application_form > div.panel-body > form > div:nth-child(7) > div:nth-child(2) > span")
         self.assert_same_message(element_error_02.text, 'Ensure this value is greater than or equal to {min_value}.',
                                  min_value=0)
-
         self.print_not_supported_value(volume_practical_asked, element_error_02.text)
-
+        '''
+          Interchanger les valeurs de deux inputs
+        '''
         volume_lecturing_asked = -10
         volume_practical_asked = "abc"
         self.fill_by_id(id_element_lecturing_asked, volume_lecturing_asked)
@@ -419,7 +426,10 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.print_not_supported_value(volume_practical_asked, element_error_02.text)
         time.sleep(2)
 
-        volume_lecturing_asked = 70.01
+        '''
+            Tester valeurs supérieur aux volumes vacants 
+        '''
+        volume_lecturing_asked = '70.01'
         volume_practical_asked = 1003
         self.fill_by_id(id_element_lecturing_asked, volume_lecturing_asked)
 
@@ -439,7 +449,9 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.print_not_supported_value(volume_practical_asked, element_error_02.text)
         time.sleep(2)
 
-
+        '''
+            Tester les valeurs autorisées
+        '''
         volume_lecturing_asked = 35
         volume_practical_asked = 70
         self.fill_by_id("id_charge_lecturing_asked", volume_lecturing_asked)
@@ -455,43 +467,49 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.assertEquals(el.text, text_check)
         el = self.driver.find_element_by_css_selector('#pnl_applications > div.panel-body > table > tbody > tr > td:nth-child(1) > span:nth-child(1)')
         self.assertEquals(el.text, learning_unit_year_test.acronym)
-
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-
-
         tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, self.next_academic_year.year)
-        #recharger pour voir si possibilité de modifier
+        '''
+           recharger pour voir si possibilité de modifier
+        '''
         self.goto('applications_overview')
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-
         time.sleep(2)
-        #tester le suppression
+        '''
+           tester le suppression
+        '''
         self.click_on("lnk_application_delete_{}".format(ue_key*3))
         alert = self.driver.switch_to.alert
-        #tester l'action d'annuler (bouton popup)
+        '''
+           tester l'action d'annuler (bouton popup)
+        '''
         alert.dismiss()
         time.sleep(2)
-
-
         self.click_on("lnk_application_delete_{}".format(ue_key*3))
         alert = self.driver.switch_to.alert
-        #tester l'action de confirmer
+        '''
+          tester l'action de confirmer
+        '''
         alert.accept()
         time.sleep(2)
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-
-        #valider la suppression
+        '''
+          valider la suppression
+        '''
         learning_container_year = self.learning_container_dict[ue_key]
         tutor_application.delete_application(self.tutor.person.global_id, learning_unit_year_test.acronym,
                                              learning_container_year.academic_year.year + 1)
-
-        #pour verifier que la candidature sur l'UE est supprimée, rechercher l'UE pour verifier qu'il est vacant
+        '''
+           pour verifier que la candidature sur l'UE est supprimée, rechercher l'UE pour verifier qu'il est vacant
+        '''
         self.goto('applications_overview')
         time.sleep(2)
-        #créer de nouveau une nouvelle candidature sur le mëme cours
+        '''
+           créer de nouveau une nouvelle candidature sur le même cours
+        '''
         self.click_on("lnk_submit_attribution_new")
         self.fill_by_id("id_learning_container_acronym", learning_unit_year_test.acronym)
         self.click_on("bt_submit_vacant_attributions_search")
@@ -499,20 +517,19 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.click_on("lnk_submit_attribution_new")
         time.sleep(2)
 
-        volume_lecturing_asked = 40.5
-        volume_practical_asked = 29.5
+        volume_lecturing_asked = '40.5'
+        volume_practical_asked = '29.5'
         self.fill_by_id("id_charge_lecturing_asked", volume_lecturing_asked)
 
         self.fill_by_id("id_charge_practical_asked", volume_practical_asked)
         self.click_on("bt_submit")
         time.sleep(2)
-
         tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, self.next_academic_year.year)
-        # recharger pour voir si possibilité de modifier
+        '''
+          recharger pour voir si possibilité de modifier
+        '''
         self.goto('applications_overview')
-
         self.click_on("lnk_application_edit_{}".format(ue_key * 3))
-
         proposition = "Proposition de Test 1"
         id_element_proposion = "id_course_summary"
         self.fill_by_id(id_element_proposion, proposition)
@@ -522,59 +539,49 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.fill_by_id("id_remark", remark)
         time.sleep(2)
         self.click_on("bt_submit")
-
         tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, self.next_academic_year.year)
 
-        # recharger pour voir si possibilité de modifier
+        '''
+          Recharger pour voir si possibilité de modifier
+          Tester la modification
+        '''
         self.goto('applications_overview')
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-        #puis tester la modification
         self.click_on("lnk_application_edit_{}".format(ue_key*3))
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
         time.sleep(2)
-
-        #vérifier que les modif encodées ont été enregistrées
-
+        '''
+           vérifier que les modifications encodées ont été enregistrées
+        '''
         element_proposition = self.driver.find_element_by_id(id_element_proposion)
         self.assertEqual(element_proposition.text, proposition)
-        # assert(element_proposition.text==proposition)
         element_remark = self.driver.find_element_by_id(id_element_remark)
-        # assert (element_remark.text == remark)
         self.assertEqual(element_remark.text, remark)
 
         time.sleep(2)
         self.driver.find_element_by_link_text('Annuler').click()
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
+        print('FIN TEST POUR "NOUVELLE CANDIDATURE"')
 
-        print('TEST OK POUR "NOUVELLE CANDIDATURE"')
-
-        #tester le check box tout sélectionner/déselectionner et valider
-
-        print('DEBUT TEST POUR "RECONDUIRE CANDIDATURE"')
-
-        print("Sélectionner tout")
-
+        ''' 
+          Tester le check box tout sélectionner/déselectionner et valider
+        '''
+        print('DEBUT TEST POUR "RECONDUIRE CANDIDATURE \n Sélectionner tout"')
         self.click_on('chb_renew_all')
         for counter in (1, 2):
             element_check = self.driver.find_element_by_id("chb_attribution_renew_{}".format(counter))
             self.assertTrue(element_check.is_selected())
-            # assert(element_check.is_selected())
             print("{} {}".format(counter, element_check.text))
-
         print('Ok : "Sélectionner tout"')
-
         time.sleep(3)
-
         print("Désélectionner tout")
-
         self.click_on('chb_renew_all')
         for counter in (0, 1):
             element_check = self.driver.find_element_by_id("chb_attribution_renew_{}".format(counter + 1))
             self.assertFalse(element_check.is_selected())
-
         print('Ok : "Désélectionner tout"')
         time.sleep(3)
 
@@ -586,10 +593,13 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
 
         print("Envoi du message")
         self.click_on('btn_applications_email_confirmtion')
-        # Aucun message n'a été envoyé : le modèle de message applications_confirmation_html n'existe pas.
-
-        #valider tous les candidature en attente
-        #le code ci dessous ne fonctionne pas :  à voir avec Allessandro
+        '''
+           aucun message n'a été envoyé : le modèle de message applications_confirmation_html n'existe pas.
+        '''
+        '''
+          #valider tous les candidature en attente
+          #le code ci dessous ne fonctionne pas :  à voir avec Allessandro
+        '''
         for counterNa in range(0, 2):
             learning_unit_year_test = self.learning_unit_dict[counterNa]
             tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, self.next_academic_year.year)
