@@ -591,8 +591,8 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
              element_in_waiting_validation = self.driver.find_elements_by_css_selector('#pnl_applications > div.panel-body > table > tbody > tr:nth-child({}) > td:nth-child(1) > span.small.font-italic'.format(counter_row))
              self.assert_contains_message(element_in_waiting_validation[0].text, 'applications_in_pending_state')
 
-        print("Envoi du message")
-        self.click_on('btn_applications_email_confirmtion')
+        # print("Envoi du message")
+        # self.click_on('btn_applications_email_confirmtion')
         '''
            aucun message n'a été envoyé : le modèle de message applications_confirmation_html n'existe pas.
         '''
@@ -600,11 +600,18 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
           #valider tous les candidature en attente
           #le code ci dessous ne fonctionne pas :  à voir avec Allessandro
         '''
+        intervale = 4
         for counterNa in range(0, 2):
+            print(counterNa)
             learning_unit_year_test = self.learning_unit_dict[counterNa]
             tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, self.next_academic_year.year)
-            time.sleep(5)
-
+            self.goto('applications_overview')
+            element_edit_buton = self.driver.find_elements_by_id('lnk_application_edit_{}'.format(counterNa+intervale))
+            self.assertEquals(True, element_edit_buton[0].is_enabled())
+            #element_remove_buton = self.driver.find_elements_by_id('lnk_application_delete_{}'.format(counterNa + intervale))
+            #self.assertEquals(True, element_remove_buton[0].is_enabled())
+            intervale  += 1
+            time.sleep(2)
 
 
 
