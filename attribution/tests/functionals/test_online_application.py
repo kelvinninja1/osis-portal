@@ -181,7 +181,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
 
 
     @classmethod
-    def tearDownClass2(cls):
+    def tearDownClass(cls):
         cls.driver.quit()
         # cls.display.stop()
         super().tearDownClass()
@@ -330,7 +330,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
                     '// *[ @ id = "pnl_charges"] / div[2] / table / tbody / tr / td[1] / a')
                 self.assertEquals(el.text, learning_unit_year_test.acronym)
                 self.assert_same_message(element_submit[0].text, 'create_an_tutor_application')
-            time.sleep(3)
+            self.driver.implicitly_wait(10)
 
         '''
         tester si on ne met rien
@@ -351,7 +351,6 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.click_on("lnk_submit_attribution_new")
         el = self.driver.find_element_by_xpath('//*[@id="pnl_application_form"]/div[2]/form/div[1]/div[1]')
         pos = el.text.find('\n')+len('\n')
-        print('--- {}'.format(el.text[pos:len(el.text)]))
         self.assertEquals(el.text[pos:len(el.text)], learning_unit_year_test.acronym)
         '''
         tester d'abord le bouton "annuler"
@@ -368,7 +367,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.fill_by_id("id_learning_container_acronym",  learning_unit_year_test.acronym)
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         self.click_on("bt_submit_vacant_attributions_search")
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
@@ -388,7 +387,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.click_on("bt_submit")
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
 
         element_error_01 = self.driver.find_element_by_css_selector(
             "#pnl_application_form > div.panel-body > form > div:nth-child(7) > div:nth-child(1) > span")
@@ -424,7 +423,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.assert_same_message(element_error_02.text, 'Enter a number.')
 
         self.print_not_supported_value(volume_practical_asked, element_error_02.text)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
 
         '''
             Tester valeurs supérieur aux volumes vacants 
@@ -447,7 +446,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
             "#pnl_application_form > div.panel-body > form > div:nth-child(6) > div:nth-child(2) > span")
         self.assert_contains_message(element_error_02.text,'too_much')
         self.print_not_supported_value(volume_practical_asked, element_error_02.text)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
 
         '''
             Tester les valeurs autorisées
@@ -476,7 +475,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.goto('applications_overview')
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         '''
            tester le suppression
         '''
@@ -486,14 +485,14 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
            tester l'action d'annuler (bouton popup)
         '''
         alert.dismiss()
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         self.click_on("lnk_application_delete_{}".format(ue_key*3))
         alert = self.driver.switch_to.alert
         '''
           tester l'action de confirmer
         '''
         alert.accept()
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
         '''
@@ -506,7 +505,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
            pour verifier que la candidature sur l'UE est supprimée, rechercher l'UE pour verifier qu'il est vacant
         '''
         self.goto('applications_overview')
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         '''
            créer de nouveau une nouvelle candidature sur le même cours
         '''
@@ -515,7 +514,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.click_on("bt_submit_vacant_attributions_search")
         time.sleep(2)
         self.click_on("lnk_submit_attribution_new")
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
 
         volume_lecturing_asked = '40.5'
         volume_practical_asked = '29.5'
@@ -523,7 +522,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
 
         self.fill_by_id("id_charge_practical_asked", volume_practical_asked)
         self.click_on("bt_submit")
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, self.next_academic_year.year)
         '''
           recharger pour voir si possibilité de modifier
@@ -533,7 +532,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         proposition = "Proposition de Test 1"
         id_element_proposion = "id_course_summary"
         self.fill_by_id(id_element_proposion, proposition)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         remark = "Remarque de Test 1"
         id_element_remark = "id_remark"
         self.fill_by_id("id_remark", remark)
@@ -560,7 +559,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         element_remark = self.driver.find_element_by_id(id_element_remark)
         self.assertEqual(element_remark.text, remark)
 
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         self.driver.find_element_by_link_text('Annuler').click()
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
@@ -583,7 +582,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
             element_check = self.driver.find_element_by_id("chb_attribution_renew_{}".format(counter + 1))
             self.assertFalse(element_check.is_selected())
         print('Ok : "Désélectionner tout"')
-        time.sleep(3)
+        self.driver.implicitly_wait(10)
 
         self.click_on('chb_renew_all')
         self.click_on("bt_submit_attribution_renew")
@@ -601,6 +600,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
           #le code ci dessous ne fonctionne pas :  à voir avec Allessandro
         '''
         intervale = 4
+        acronym_fix=2
         for counterNa in range(0, 2):
             print(counterNa)
             learning_unit_year_test = self.learning_unit_dict[counterNa]
@@ -608,10 +608,10 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
             self.goto('applications_overview')
             element_edit_buton = self.driver.find_elements_by_id('lnk_application_edit_{}'.format(counterNa+intervale))
             self.assertEquals(True, element_edit_buton[0].is_enabled())
-            #element_remove_buton = self.driver.find_elements_by_id('lnk_application_delete_{}'.format(counterNa + intervale))
-            #self.assertEquals(True, element_remove_buton[0].is_enabled())
+            element_online_acronym = self.driver.find_element_by_css_selector ('#pnl_applications > div.panel-body > table > tbody > tr:nth-child(2) > td:nth-child(1)')
+            self.assertEquals(element_online_acronym.text, 'LBIOL100{}'.format(acronym_fix-counterNa))
             intervale  += 1
-            time.sleep(2)
+            self.driver.implicitly_wait(10)
 
 
 
