@@ -512,7 +512,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.click_on("lnk_submit_attribution_new")
         self.fill_by_id("id_learning_container_acronym", learning_unit_year_test.acronym)
         self.click_on("bt_submit_vacant_attributions_search")
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         self.click_on("lnk_submit_attribution_new")
         self.driver.implicitly_wait(10)
 
@@ -536,7 +536,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         remark = "Remarque de Test 1"
         id_element_remark = "id_remark"
         self.fill_by_id("id_remark", remark)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         self.click_on("bt_submit")
         tutor_application.validate_application(GLOBAL_ID, learning_unit_year_test.acronym, self.next_academic_year.year)
 
@@ -550,7 +550,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
         self.click_on("lnk_application_edit_{}".format(ue_key*3))
         self.counter_img += 1
         self.save_screen(self.folder_name, self.name_img_screen, self.counter_img, self.ext)
-        time.sleep(2)
+        self.driver.implicitly_wait(10)
         '''
            vérifier que les modifications encodées ont été enregistrées
         '''
@@ -575,7 +575,7 @@ class SeleniumTest_On_Line_Application(StaticLiveServerTestCase, BusinessMixin):
             self.assertTrue(element_check.is_selected())
             print("{} {}".format(counter, element_check.text))
         print('Ok : "Sélectionner tout"')
-        time.sleep(3)
+        self.driver.implicitly_wait(10)
         print("Désélectionner tout")
         self.click_on('chb_renew_all')
         for counter in (0, 1):
