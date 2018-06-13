@@ -24,10 +24,10 @@
 #
 ##############################################################################
 from django.db import models
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
+from django.contrib import admin
 
 
-class CountryAdmin(SerializableModelAdmin):
+class CountryAdmin(admin.ModelAdmin):
     list_display = ('external_id', 'name', 'iso_code', 'nationality', 'european_union', 'dialing_code', 'cref_code')
     fieldsets = ((None, {'fields': ('iso_code', 'name', 'nationality', 'european_union', 'dialing_code',
                                     'cref_code')}),)
@@ -35,7 +35,7 @@ class CountryAdmin(SerializableModelAdmin):
     search_fields = ['name']
 
 
-class Country(SerializableModel):
+class Country(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     iso_code = models.CharField(max_length=2, unique=True)
     name = models.CharField(max_length=80, unique=True)

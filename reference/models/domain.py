@@ -24,18 +24,18 @@
 #
 ##############################################################################
 from django.db import models
+from django.contrib import admin
 from reference.enums import domain_type
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
 from . import decree
 
 
-class DomainAdmin(SerializableModelAdmin):
+class DomainAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent', 'decree', 'type')
     fieldsets = ((None, {'fields': ('name', 'parent', 'decree', 'type')}),)
     search_fields = ['name']
 
 
-class Domain(SerializableModel):
+class Domain(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=255)
     parent = models.ForeignKey('self', null=True, blank=True)
