@@ -30,12 +30,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from base.models import person as model_person
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
+from django.contrib import admin
 
 logger = logging.getLogger(settings.DEFAULT_LOGGER)
 
 
-class StudentAdmin(SerializableModelAdmin):
+class StudentAdmin(admin.ModelAdmin):
     actions = ['add_to_group']
     list_display = ('person', 'registration_id', 'email')
     fieldsets = ((None, {'fields': ('registration_id', 'person')}),)
@@ -57,7 +57,7 @@ class StudentAdmin(SerializableModelAdmin):
             self.message_user(request, "Group {} doesn't exist.".format(group_name), level=messages.ERROR)
 
 
-class Student(SerializableModel):
+class Student(models.Model):
     registration_id = models.CharField(max_length=10, unique=True)
     person = models.ForeignKey('Person')
 

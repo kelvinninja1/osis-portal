@@ -24,16 +24,16 @@
 #
 ##############################################################################
 from django.db import models
+from django.contrib import admin
 from django.utils import timezone
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
 
 
-class AcademicCalendarAdmin(SerializableModelAdmin):
+class AcademicCalendarAdmin(admin.ModelAdmin):
     list_display = ('academic_year', 'reference')
     search_fields = ['reference']
 
 
-class AcademicCalendar(SerializableModel):
+class AcademicCalendar(models.Model):
     academic_year = models.ForeignKey('AcademicYear')
     title = models.CharField(max_length=50, blank=True, null=True)
     start_date = models.DateField(auto_now=False, blank=True, null=True, auto_now_add=False)

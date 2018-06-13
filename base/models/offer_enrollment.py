@@ -25,13 +25,13 @@
 ##############################################################################
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.contrib import admin
 
 from base.models.enums import offer_enrollment_state
 from base.models.offer_year import OfferYear
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
 
 
-class OfferEnrollmentAdmin(SerializableModelAdmin):
+class OfferEnrollmentAdmin(admin.ModelAdmin):
     list_display = ('offer_year', 'student', 'date_enrollment', 'enrollment_state')
     fieldsets = ((None, {'fields': ('offer_year', 'student', 'date_enrollment', 'enrollment_state')}),)
     raw_id_fields = ('offer_year', 'student')
@@ -39,7 +39,7 @@ class OfferEnrollmentAdmin(SerializableModelAdmin):
                      'student__registration_id', 'enrollment_state']
 
 
-class OfferEnrollment(SerializableModel):
+class OfferEnrollment(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     date_enrollment = models.DateField()
     offer_year = models.ForeignKey(OfferYear)

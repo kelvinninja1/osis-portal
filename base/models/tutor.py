@@ -28,19 +28,19 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from base.models import person as model_person
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
+from django.contrib import admin
 
 logger = logging.getLogger(settings.DEFAULT_LOGGER)
 
 
-class TutorAdmin(SerializableModelAdmin):
+class TutorAdmin(admin.ModelAdmin):
     list_display = ('external_id', 'person', 'changed')
     fieldsets = ((None, {'fields': ('external_id','person',)}),)
     raw_id_fields = ('person', )
     search_fields = ['person__first_name', 'person__last_name']
 
 
-class Tutor(SerializableModel):
+class Tutor(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     changed = models.DateTimeField(null=True)
     person = models.OneToOneField('Person')

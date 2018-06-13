@@ -24,16 +24,16 @@
 #
 ##############################################################################
 from django.db import models
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
+from django.contrib import admin
 from base.models import offer_enrollment
 
 
-class OfferAdmin(SerializableModelAdmin):
+class OfferAdmin(admin.ModelAdmin):
     fieldsets = ((None, {'fields': ('title',)}),)
     search_fields = ['title']
 
 
-class Offer(SerializableModel):
+class Offer(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     title = models.CharField(max_length=255)
 

@@ -24,12 +24,11 @@
 #
 ##############################################################################
 from django.db import models
-
+from django.contrib import admin
 from base.models.enums import learning_unit_enrollment_state
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
 
 
-class LearningUnitEnrollmentAdmin(SerializableModelAdmin):
+class LearningUnitEnrollmentAdmin(admin.ModelAdmin):
     list_display = ('student', 'learning_unit_year', 'date_enrollment', 'enrollment_state', 'changed')
     fieldsets = ((None, {'fields': ('offer_enrollment', 'learning_unit_year', 'date_enrollment', 'enrollment_state',)}),)
     list_filter = ('learning_unit_year__academic_year', 'enrollment_state',)
@@ -41,7 +40,7 @@ class LearningUnitEnrollmentAdmin(SerializableModelAdmin):
                      'offer_enrollment__student__person__last_name']
 
 
-class LearningUnitEnrollment(SerializableModel):
+class LearningUnitEnrollment(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     changed = models.DateTimeField(null=True)
     date_enrollment = models.DateField()

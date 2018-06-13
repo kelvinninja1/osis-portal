@@ -24,16 +24,16 @@
 #
 ##############################################################################
 from django.db import models
-from osis_common.models.serializable_model import SerializableModelAdmin, SerializableModel
+from django.contrib import admin
 
 
-class LearningUnitAdmin(SerializableModelAdmin):
+class LearningUnitAdmin(admin.ModelAdmin):
     list_display = ('external_id',)
     fieldsets = ((None, {'fields': ('external_id',)}),)
     search_fields = ['external_id']
 
 
-class LearningUnit(SerializableModel):
+class LearningUnit(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):

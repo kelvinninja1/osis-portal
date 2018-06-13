@@ -23,18 +23,13 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.contrib import admin
 from django.db.models import Q
-from django.utils import timezone
-
-from base.models.academic_year import AcademicYear
-from base.models.enums import entity_type
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
 
 
-class EntityVersionAdmin(SerializableModelAdmin):
+
+class EntityVersionAdmin(admin.ModelAdmin):
     list_display = ('id', 'entity', )
     search_fields = ['entity__id']
     raw_id_fields = ('entity', )
@@ -51,7 +46,7 @@ class EntityVersionQuerySet(models.QuerySet):
         return self.filter(entity=entity)
 
 
-class EntityVersion(SerializableModel):
+class EntityVersion(models.Model):
     changed = models.DateTimeField(null=True, auto_now=True)
     entity = models.ForeignKey('Entity')
     acronym = models.CharField(db_index=True, max_length=20, null=True, blank=True)

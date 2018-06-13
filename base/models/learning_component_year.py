@@ -23,13 +23,12 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from base.models.enums import learning_component_year_type
 from django.db import models
+from django.contrib import admin
+from base.models.enums import learning_component_year_type
 
-from osis_common.models.serializable_model import SerializableModelAdmin, SerializableModel
 
-
-class LearningComponentYearAdmin(SerializableModelAdmin):
+class LearningComponentYearAdmin(admin.ModelAdmin):
     list_display = ('learning_container_year', 'acronym', 'type', 'volume_declared_vacant', 'planned_classes')
     fieldsets = ((None, {'fields': ('learning_container_year', 'acronym', 'type', 'volume_declared_vacant',
                                     'planned_classes', 'hourly_volume_total_annual', 'hourly_volume_partial_q1',
@@ -39,7 +38,7 @@ class LearningComponentYearAdmin(SerializableModelAdmin):
     list_filter = ('learning_container_year__academic_year',)
 
 
-class LearningComponentYear(SerializableModel):
+class LearningComponentYear(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     changed = models.DateTimeField(null=True, auto_now=True)
     learning_container_year = models.ForeignKey('LearningContainerYear')

@@ -24,17 +24,17 @@
 #
 ##############################################################################
 from django.db import models
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
+from django.contrib import admin
 
 
-class CampusAdmin(SerializableModelAdmin):
+class CampusAdmin(admin.ModelAdmin):
     list_display = ('name', 'organization')
     list_filter = ('organization',)
     fieldsets = ((None, {'fields': ('name', 'organization', 'code', 'is_administration')}),)
     search_fields = ['name', 'organization__name']
 
 
-class Campus(SerializableModel):
+class Campus(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     organization = models.ForeignKey('Organization')

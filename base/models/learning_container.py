@@ -24,17 +24,16 @@
 #
 ##############################################################################
 from django.db import models
+from django.contrib import admin
 
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
 
-
-class LearningContainerAdmin(SerializableModelAdmin):
+class LearningContainerAdmin(admin.ModelAdmin):
     list_display = ('external_id',)
     fieldsets = ((None, {'fields': ('external_id',)}),)
     search_fields = ['external_id']
 
 
-class LearningContainer(SerializableModel):
+class LearningContainer(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     changed = models.DateTimeField(null=True, auto_now=True)
     auto_renewal_until = models.IntegerField(null=True)

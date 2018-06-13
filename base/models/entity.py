@@ -24,22 +24,16 @@
 #
 ##############################################################################
 from django.contrib import admin
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.db.models import Case, When, Q, F
-from django.utils import timezone
-
-from base.models.enums import entity_type
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
 
 
-class EntityAdmin(SerializableModelAdmin):
+class EntityAdmin(admin.ModelAdmin):
     list_display = ('id', 'organization')
     search_fields = ['organization__acronym', 'organization__name']
     readonly_fields = ('organization',)
 
 
-class Entity(SerializableModel):
+class Entity(models.Model):
     organization = models.ForeignKey('Organization', blank=True, null=True)
     changed = models.DateTimeField(null=True, auto_now=True)
 

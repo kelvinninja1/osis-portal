@@ -24,10 +24,10 @@
 #
 ##############################################################################
 from django.db import models
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
+from django.contrib import admin
 
 
-class OfferYearAdmin(SerializableModelAdmin):
+class OfferYearAdmin(admin.ModelAdmin):
     list_display = ('acronym', 'title', 'academic_year', 'grade_type', 'enrollment_enabled')
     list_filter = ('grade_type__institutional_grade_type', 'enrollment_enabled')
     fieldsets = ((None, {'fields': ('academic_year', 'acronym', 'title', 'title_international', 'grade_type',
@@ -36,7 +36,7 @@ class OfferYearAdmin(SerializableModelAdmin):
     raw_id_fields = ('offer',)
 
 
-class OfferYear(SerializableModel):
+class OfferYear(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     academic_year = models.ForeignKey('base.AcademicYear')
     acronym = models.CharField(max_length=15)

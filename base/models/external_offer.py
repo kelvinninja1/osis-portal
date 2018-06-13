@@ -24,17 +24,17 @@
 #
 ##############################################################################
 from django.db import models
-from osis_common.models.serializable_model import SerializableModel, SerializableModelAdmin
+from django.contrib import admin
 
 
-class ExternalOfferAdmin(SerializableModelAdmin):
+class ExternalOfferAdmin(admin.ModelAdmin):
     list_display = ('name', 'adhoc', 'domain', 'grade_type', 'offer_year', 'changed')
     fieldsets = ((None, {'fields': ('name', 'adhoc', 'domain', 'grade_type', 'offer_year')}),)
     ordering = ('name',)
     search_fields = ['name']
 
 
-class ExternalOffer(SerializableModel):
+class ExternalOffer(models.Model):
     external_id = models.CharField(max_length=100, blank=True, null=True)
     changed = models.DateTimeField(null=True)
     name = models.CharField(max_length=150, unique=True)
