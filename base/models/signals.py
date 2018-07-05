@@ -157,5 +157,5 @@ def _update_person_if_necessary(person, user, global_id):
         person.global_id = global_id
         updated = True
     if updated:
-        super(SerializableModel, person).save()
+        person.save()
     return updated, person
