@@ -4,10 +4,13 @@ All the environment for a student could be created
 """
 from django.contrib.auth.models import Permission, Group
 
+from base.tests.factories.offer_enrollment import OfferEnrollmentFactory
 from base.tests.factories.person import PersonFactory
 from base.tests.factories.student import StudentFactory
 from base.tests.factories.tutor import TutorFactory
 from base.tests.factories.user import SuperUserFactory
+from base.tests.functional.models.common import CommonMixin
+from base.models import academic_year as mdl_academic_year
 
 
 class UserMixin:
@@ -24,7 +27,7 @@ class UserMixin:
             group.permissions.add(permission)
 
 
-class StudentMixin(UserMixin):
+class StudentMixin(UserMixin, CommonMixin):
     def create_students_group(self):
         group, created = self.create_group('students')
         self.add_permissions_to_group('students', 'is_student')
@@ -42,6 +45,17 @@ class StudentMixin(UserMixin):
         student = StudentFactory(person=person)
         students_group = self.create_students_group()
         students_group.user_set.add(person.user)
+        return student
+
+    def create_student_with_offer_registration(self, year, user=None):
+        """
+        Create a student with a offer registration to the specific years
+        """
+        self.init_academic_years(start_year=year)
+        current_academic_year = mdl_academic_year.current_academic_year()
+        offer_year = self.create_offer_year(academic_year=current_academic_year)
+        student = self.create_student(user)
+        OfferEnrollmentFactory(student=student, offer_year=offer_year)
         return student
 
 

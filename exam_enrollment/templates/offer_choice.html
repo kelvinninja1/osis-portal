@@ -26,6 +26,8 @@
 * see http://www.gnu.org/licenses/.
 {% endcomment %}
 
+{% block title %}Exam Enrollment Offers Choice{% endblock %}
+
 {% block breadcrumb %}
     <li class="active">{% trans 'program_choice' %}</li>
 {% endblock %}
@@ -75,8 +77,10 @@
 
                                 <td>{{ program.academic_year }}</td>
                                 <td>
-                                    <a href="#"
-                                       data-toggle="modal" data-target="#modalConfirmExamEnrollment{{ program.id }}">
+                                    <a id="lnk_offer_enrollment_{{ program.id }}"
+                                       href="#"
+                                       data-toggle="modal"
+                                       data-target="#modalConfirmExamEnrollment{{ program.id }}">
                                         {{ program.acronym }}
                                     </a>
                                 </td>
