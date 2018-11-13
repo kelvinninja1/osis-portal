@@ -80,7 +80,12 @@ def navigation(request, navigate_direct_to_form):
             return layout.render(request, 'offer_choice.html', {'programs': student_programs,
                                                                 'student': stud})
     else:
-        messages.add_message(request, messages.WARNING, _('no_offer_enrollment_found').format(current_academic_year))
+        messages.add_message(
+            request,
+            messages.WARNING,
+            _("You're not enrolled to any program for the current academic year (%(academic_year)s).")
+            % {"academic_year": current_academic_year}
+        )
         return response.HttpResponseRedirect(reverse('dashboard_home'))
 
 
@@ -109,7 +114,10 @@ def _get_student_programs(stud, acad_year):
 def _get_exam_enrollment_form(off_year, request, stud):
     learn_unit_enrols = mdl_base.learning_unit_enrollment.find_by_student_and_offer_year(stud, off_year)
     if not learn_unit_enrols:
-        messages.add_message(request, messages.WARNING, _('no_learning_unit_enrollment_found').format(off_year.acronym))
+        messages.add_message(request,
+                             messages.WARNING,
+                             _("You're not enrolled in the learning units of this program : %(acronym)s.")
+                             % {"acronym": off_year.acronym} )
         return response.HttpResponseRedirect(reverse('dashboard_home'))
     if hasattr(settings, 'QUEUES') and settings.QUEUES:
         request_timeout = settings.QUEUES.get("QUEUES_TIMEOUT").get("EXAM_ENROLLMENT_FORM_RESPONSE")
@@ -232,7 +240,7 @@ def _process_exam_enrollment_form_submission(off_year, request, stud):
     if json_data and offer_enrol:
         exam_enrollment_submitted.insert_or_update_document(offer_enrol, json_data)
     queue_sender.send_message(settings.QUEUES.get('QUEUES_NAME').get('EXAM_ENROLLMENT_FORM_SUBMISSION'), data_to_submit)
-    messages.add_message(request, messages.SUCCESS, _('exam_enrollment_form_submitted'))
+    messages.add_message(request, messages.SUCCESS, _('Exam enrollment form successfully submitted.'))
     return response.HttpResponseRedirect(reverse('dashboard_home'))
 
 

@@ -27,13 +27,13 @@
 {% endcomment %}
 
 {% block breadcrumb %}
-    <li class="active">{% trans 'program_choice' %}</li>
+    <li class="active">{% trans 'Program choice' %}</li>
 {% endblock %}
 
 
 {% block content %}
     <div class="page-header">
-        <h2>{% trans 'exams_enrollment' %}</h2>
+        <h2>{% trans 'Exams enrollment' %}</h2>
     </div>
 
     <div class="panel panel-default">
@@ -41,24 +41,24 @@
             {% if programs %}
                 <div class="row">
                     <div class="col-md-6">
-                        <label>{% trans 'last_name' %}, {% trans 'first_name' %}</label>
+                        <label>{% trans 'Last Name' %}, {% trans 'First Name' %}</label>
                         <br>
                         {{ student.person.last_name}}, {{ student.person.first_name }}
                     </div>
                     <div class="col-md-6">
-                        <label>{% trans 'registration_id' %}</label>
+                        <label>{% trans 'Registration id' %}</label>
                         <br>
                         {{ student.registration_id }}
                     </div>
                 </div>
                 <br>
                 <div class="alert alert-info" style="display:inline-block;">
-                    <i class="fa fa-info-circle" style="font-size:120%" aria-hidden="true"></i>  {% trans 'choose_offer_for_exams_enrollment' %}
+                    <i class="fa fa-info-circle" style="font-size:120%" aria-hidden="true"></i>  {% trans 'Please select the program in which you want to enrol to exams' %}
                 </div>
             {% else %}
                 <br>
                 <div class="alert alert-warning" style="display:inline-block;">
-                    <p>{% trans 'no_offer_enrollment_found' %}</p>
+                    <p>{% trans "You're not enrolled to any program for the current academic year (%(academic_year)s)." %}</p>
                 </div>
             {% endif %}
 
@@ -66,9 +66,9 @@
                 {% if programs %}
                     <table id="table_exam_enrollment_offer_choice" class="table table-striped table-hover">
                         <tr>
-                            <th>{% trans 'year' %}</th>
-                            <th>{% trans 'acronym' %}</th>
-                            <th>{% trans 'program' %}</th>
+                            <th>{% trans 'Year' %}</th>
+                            <th>{% trans 'Acronym' %}</th>
+                            <th>{% trans 'Program' %}</th>
                         </tr>
                         {% for program in programs %}
                             <tr>

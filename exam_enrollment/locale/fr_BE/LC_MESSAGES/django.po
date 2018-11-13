@@ -29,57 +29,59 @@ msgid "Which action do you want to perform ?"
 msgstr "Quelle action souhaitez-vous effectuer ?"
 
 #: templates/exam_enrollment_form.html:59
-msgid "academic_year"
-msgstr ""
+msgid "Academic Year"
+msgstr "Année académique"
 
 #: templates/offer_choice.html:70
-msgid "acronym"
+msgid "Acronym"
 msgstr "Sigle"
 
 #: templates/blocks/modal/exam_enrollment_confirm.html:57
 msgid "cancel"
-msgstr ""
+msgstr "annuler"
 
 #: templates/offer_choice.html:56
-msgid "choose_offer_for_exams_enrollment"
+msgid "Please select the program in which you want to enrol to exams"
 msgstr ""
 "Sélectionnez le programme dans lequel vous désirez vous inscrire aux examens."
 
 #: templates/exam_enrollment_form.html:89
-msgid "course"
+msgid "Course"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:96
-msgid "credited"
-msgstr ""
+msgid "Credited"
+msgstr "Crédité"
 
 #: templates/exam_enrollment_form.html:91
-msgid "ects"
+msgid "ECTS"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:47
-msgid "exam_enrollment_form_loading"
+msgid "Exam enrollment form is loading."
 msgstr "Récupération du formulaire d'inscription aux examens."
 
 #: views/exam_enrollment.py:235
-msgid "exam_enrollment_form_submitted"
+msgid "Exam enrollment form successfully submitted."
 msgstr "Formulaire d'inscription aux examens soumis avec succès."
 
 #: templates/exam_enrollment_form.html:32
 #: templates/exam_enrollment_form.html:37 templates/offer_choice.html:36
-msgid "exams_enrollment"
+msgid "Exams enrollment"
 msgstr "Inscription aux examens"
 
 #: templates/exam_enrollment_form.html:54 templates/offer_choice.html:44
-msgid "first_name"
+msgid "First Name"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:267
-msgid "form_unavailable"
+msgid "Form unavailable"
 msgstr "Le formulaire d'inscription n'est pas disponible pour l'instant"
 
 #: templates/exam_enrollment_form.html:76
-msgid "info_exam_enrollment_by_default"
+msgid "<b>You are enrolled to all checked exams below. <br>If it fits your needs, "
+      "then you don't have to do anything. </b><br>To modify your exam enrollments, "
+      "please check/uncheck boxes below and then click on 'Validate changes'."
 msgstr ""
 "<b>Vous êtes inscrit à tous les examens cochés ci-dessous. <br>Si cela vous "
 "convient, vous n'avez aucune action à effectuer.</b><br>Vous pouvez modifier "
@@ -87,117 +89,117 @@ msgstr ""
 "cliquant sur 'Valider mes changements'."
 
 #: templates/exam_enrollment_form.html:92
-msgid "inscr"
+msgid "Inscr."
 msgstr ""
 
 #: templates/exam_enrollment_form.html:93
-msgid "jan"
+msgid "Jan."
 msgstr ""
 
 #: templates/exam_enrollment_form.html:94
-msgid "june"
+msgid "June"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:54 templates/offer_choice.html:44
-msgid "last_name"
+msgid "Last Name"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:186
-msgid "legend"
+msgid "Legend"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:198
-msgid "legend_exam_enrol_b"
+msgid "B - Credit"
 msgstr "B - Crédit"
 
 #: templates/exam_enrollment_form.html:206
-msgid "legend_exam_enrol_d"
+msgid "D - Dispensation"
 msgstr "D - Dispense"
 
 #: templates/exam_enrollment_form.html:190
-msgid "legend_exam_enrol_i"
+msgid "I - First enrollment"
 msgstr "I - Première inscription"
 
 #: templates/exam_enrollment_form.html:194
-msgid "legend_exam_enrol_j"
+msgid "J - Score's adjournment from January to September"
 msgstr "J - Report de note de janvier vers septembre"
 
 #: templates/exam_enrollment_form.html:189
-msgid "legend_exam_enrol_p"
+msgid "P - Partial exam"
 msgstr "P - Examen partiel"
 
 #: templates/exam_enrollment_form.html:197
-msgid "legend_exam_enrol_r"
+msgid "R - Score's adjournment from last session exam"
 msgstr "R - Report de note de la session précédente"
 
 #: templates/exam_enrollment_form.html:201
-msgid "legend_exam_enrol_t"
+msgid "T - Score result from a test"
 msgstr "T - Note résultant d'un test"
 
 #: templates/exam_enrollment_form.html:202
-msgid "legend_exam_enrol_v"
+msgid "V - Satifactory evaluation (score doesn't matter)"
 msgstr "V - Évaluation satisfaisante (le note ne compte pas)"
 
 #: templates/exam_enrollment_form.html:205
-msgid "legend_exam_enrol_w"
+msgid "W - Unsatisfactory evaluation (score doesn't matter)"
 msgstr "W - Évaluation non satisfaisante (la note ne compte pas)"
 
 #: templates/exam_enrollment_form.html:209
-msgid "legend_exam_enrol_x"
+msgid "X - Law and administrative penalty"
 msgstr "X - Droit et sanction"
 
 #: templates/exam_enrollment_form.html:193
-msgid "legend_exam_enrol_y"
+msgid "Y - Second enrollment"
 msgstr "Y - Deuxième inscription"
 
 #: templates/exam_enrollment_form.html:169
-msgid "message_exam_enrolment_state"
+msgid "You can see the state of all your exam enrollments in your "
 msgstr ""
 "Vous pouvez consulter l'ensemble des états d'inscriptions aux examens dans "
 "le récapitulatif "
 
 #: templates/exam_enrollment_form.html:169
-msgid "message_exam_enrolment_state_link_label"
+msgid "scoresheet"
 msgstr "'Mon état d'inscription aux cours et mes notes d'examen'"
 
 #: views/exam_enrollment.py:112
-msgid "no_learning_unit_enrollment_found"
-msgstr "Vous n'êtes inscrit à aucun cours dans le cadre du programme {}."
+msgid "You're not enrolled in the learning units of this program : %(acronym)s."
+msgstr "Vous n'êtes inscrit à aucun cours dans le cadre du programme %(acronym)s."
 
 #: templates/offer_choice.html:61 views/exam_enrollment.py:83
-msgid "no_offer_enrollment_found"
+msgid "You're not enrolled to any program for the current academic year (%(academic_year)s)."
 msgstr ""
 "Vous n'êtes inscrit à aucun programme d'étude pour l'année académique en "
-"cours ({})."
+"cours (%(academic_year)s)."
 
 #: templates/exam_enrollment_form.html:31
-msgid "offer_choice"
+msgid "Program"
 msgstr "Choix de l'offre"
 
 #: templates/exam_enrollment_form.html:64 templates/offer_choice.html:71
-msgid "program"
+msgid "Program"
 msgstr "Programme"
 
 #: templates/offer_choice.html:30
-msgid "program_choice"
+msgid "Program choice"
 msgstr "Choix du programme"
 
 #: templates/offer_choice.html:49
-msgid "registration_id"
+msgid "Registration id"
 msgstr "Matricule"
 
 #: templates/exam_enrollment_form.html:95
-msgid "sept"
+msgid "Sept."
 msgstr ""
 
 #: templates/exam_enrollment_form.html:90
-msgid "title"
+msgid "Title"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:176
-msgid "validate_changes"
+msgid "Validate changes"
 msgstr "Valider mes changements"
 
 #: templates/offer_choice.html:69
-msgid "year"
+msgid "Year"
 msgstr "Année"

@@ -29,169 +29,168 @@ msgid "Which action do you want to perform ?"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:59
-msgid "academic_year"
+msgid "Academic Year"
 msgstr ""
 
 #: templates/offer_choice.html:70
-msgid "acronym"
-msgstr "Acronym"
+msgid "Acronym"
+msgstr ""
 
 #: templates/blocks/modal/exam_enrollment_confirm.html:57
 msgid "cancel"
 msgstr ""
 
 #: templates/offer_choice.html:56
-msgid "choose_offer_for_exams_enrollment"
-msgstr "Please select the program in which you want to enrol to exams"
+msgid "Please select the program in which you want to enrol to exams"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:89
-msgid "course"
+msgid "Course"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:96
-msgid "credited"
+msgid "Credited"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:91
-msgid "ects"
+msgid "ECTS"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:47
-msgid "exam_enrollment_form_loading"
-msgstr "Exam enrollment form is loading."
+msgid "Exam enrollment form is loading."
+msgstr ""
 
 #: views/exam_enrollment.py:235
-msgid "exam_enrollment_form_submitted"
-msgstr "Exam enrollment form successfully submitted."
+msgid "Exam enrollment form successfully submitted."
+msgstr ""
 
 #: templates/exam_enrollment_form.html:32
 #: templates/exam_enrollment_form.html:37 templates/offer_choice.html:36
-msgid "exams_enrollment"
-msgstr "Exams enrollment"
+msgid "Exams enrollment"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:54 templates/offer_choice.html:44
-msgid "first_name"
+msgid "First Name"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:267
-msgid "form_unavailable"
-msgstr "Form unavailable"
+msgid "Form unavailable"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:76
-msgid "info_exam_enrollment_by_default"
+msgid "<b>You are enrolled to all checked exams below. <br>If it fits your needs, "
+      "then you don't have to do anything. </b><br>To modify your exam enrollments, "
+      "please check/uncheck boxes below and then click on 'Validate changes'."
 msgstr ""
-"<b>You are enrolled to all checked exams below. <br>If it fits your needs, "
-"then you don't have to do anything. </b><br>To modify your exam enrollments, "
-"please check/uncheck boxes below and then click on 'Validate changes'."
 
 #: templates/exam_enrollment_form.html:92
-msgid "inscr"
+msgid "Inscr."
 msgstr ""
 
 #: templates/exam_enrollment_form.html:93
-msgid "jan"
+msgid "Jan."
 msgstr ""
 
 #: templates/exam_enrollment_form.html:94
-msgid "june"
+msgid "June"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:54 templates/offer_choice.html:44
-msgid "last_name"
+msgid "Last Name"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:186
-msgid "legend"
+msgid "Legend"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:198
-msgid "legend_exam_enrol_b"
-msgstr "B - Credit"
+msgid "B - Credit"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:206
-msgid "legend_exam_enrol_d"
-msgstr "D - Dispensation"
+msgid "D - Dispensation"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:190
-msgid "legend_exam_enrol_i"
-msgstr "I - First enrollment"
+msgid "I - First enrollment"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:194
-msgid "legend_exam_enrol_j"
-msgstr "J - Score's adjournment from January to September"
+msgid "J - Score's adjournment from January to September"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:189
-msgid "legend_exam_enrol_p"
-msgstr "P - Partial exam"
+msgid "P - Partial exam"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:197
-msgid "legend_exam_enrol_r"
-msgstr "R - Score's adjournment from last session exam"
+msgid "R - Score's adjournment from last session exam"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:201
-msgid "legend_exam_enrol_t"
-msgstr "T - Score result from a test"
+msgid "T - Score result from a test"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:202
-msgid "legend_exam_enrol_v"
-msgstr "V - Satifactory evaluation (score doesn't matter)"
+msgid "V - Satifactory evaluation (score doesn't matter)"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:205
-msgid "legend_exam_enrol_w"
-msgstr "W - Unsatisfactory evaluation (score doesn't matter)"
+msgid "W - Unsatisfactory evaluation (score doesn't matter)"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:209
-msgid "legend_exam_enrol_x"
-msgstr "X - Law and administrative penalty"
+msgid "X - Law and administrative penalty"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:193
-msgid "legend_exam_enrol_y"
-msgstr "Y - Second enrollment"
+msgid "Y - Second enrollment"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:169
-msgid "message_exam_enrolment_state"
-msgstr "You can see the state of all your exam enrollments in your "
+msgid "You can see the state of all your exam enrollments in your "
+msgstr ""
 
 #: templates/exam_enrollment_form.html:169
-msgid "message_exam_enrolment_state_link_label"
-msgstr "scoresheet"
+msgid "scoresheet"
+msgstr ""
 
 #: views/exam_enrollment.py:112
-msgid "no_learning_unit_enrollment_found"
-msgstr "You're not enrolled in the learning units of this program : {}."
+msgid "You're not enrolled in the learning units of this program : %(acronym)s."
+msgstr ""
 
 #: templates/offer_choice.html:61 views/exam_enrollment.py:83
-msgid "no_offer_enrollment_found"
-msgstr "You're not enrolled to any program for the current academic year ({})."
+msgid "You're not enrolled to any program for the current academic year (%(academic_year)s)."
+msgstr ""
 
 #: templates/exam_enrollment_form.html:31
-msgid "offer_choice"
-msgstr "Offer choice"
+msgid "Offer choice"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:64 templates/offer_choice.html:71
-msgid "program"
-msgstr "Program"
+msgid "Program"
+msgstr ""
 
 #: templates/offer_choice.html:30
-msgid "program_choice"
-msgstr "Program choice"
+msgid "Program choice"
+msgstr ""
 
 #: templates/offer_choice.html:49
-msgid "registration_id"
-msgstr "Registration id"
+msgid "Registration id"
+msgstr ""
 
 #: templates/exam_enrollment_form.html:95
-msgid "sept"
+msgid "Sept."
 msgstr ""
 
 #: templates/exam_enrollment_form.html:90
-msgid "title"
+msgid "Title"
 msgstr ""
 
 #: templates/exam_enrollment_form.html:176
-msgid "validate_changes"
-msgstr "Validate changes"
+msgid "Validate changes"
+msgstr ""
 
 #: templates/offer_choice.html:69
-msgid "year"
-msgstr "Year"
+msgid "Year"
+msgstr ""

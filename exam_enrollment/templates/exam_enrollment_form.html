@@ -28,13 +28,13 @@
 {% endcomment %}
 
 {% block breadcrumb %}
-    <li><a id="lnk_home_dashboard" href="{% url 'exam_enrollment_offer_choice' %}">{% trans 'offer_choice' %}</a></li>
-    <li class="active">{% trans 'exams_enrollment' %}</li>
+    <li><a id="lnk_home_dashboard" href="{% url 'exam_enrollment_offer_choice' %}">{% trans 'Offer choice' %}</a></li>
+    <li class="active">{% trans 'Exams enrollment' %}</li>
 {% endblock %}
 
 {% block content %}
     <div class="page-header hidden-print">
-        <h2>{% trans 'exams_enrollment' %}</h2>
+        <h2>{% trans 'Exams enrollment' %}</h2>
     </div>
 
     <div class="panel panel-default">
@@ -44,24 +44,24 @@
                     {% if error_message %}
                         <span id="status_message">{% trans error_message %}</span>
                     {% else %}
-                        <span id="status_message"><i class="fa fa-spinner fa-spin fa-fw"></i>{% trans 'exam_enrollment_form_loading' %}</span>
+                        <span id="status_message"><i class="fa fa-spinner fa-spin fa-fw"></i>{% trans 'Exam enrollment form is loading.' %}</span>
                     {% endif %}
                 </div>
             {% else %}
                 <!-- Student information's-->
                 <div class="row">
                     <div class="col-md-3">
-                        <label>{% trans 'last_name' %}, {% trans 'first_name' %}</label>
+                        <label>{% trans 'Last Name' %}, {% trans 'First Name' %}</label>
                         <br>
                         {{ student.person.last_name}}, {{ student.person.first_name }}
                     </div>
                     <div class="col-md-3">
-                        <label>{% trans 'academic_year' %}</label>
+                        <label>{% trans 'Academic Year' %}</label>
                         <br>
                         {{ academic_year }}
                     </div>
                     <div class="col-md-6">
-                        <label>{% trans 'program' %}</label>
+                        <label>{% trans 'Program' %}</label>
                         <br>
                         {{ program.acronym }} - {{ program.title }}
                     </div>
@@ -73,7 +73,7 @@
                     <table>
                         <tr>
                             <td style="padding-right:12px;"><i class="fa fa-info-circle" style="font-size:250%" aria-hidden="true"></i></td>
-                            <td>{% trans 'info_exam_enrollment_by_default' as info_exam_enrollment_by_default %}
+                            <td>{% trans "<b>You are enrolled to all checked exams below. <br>If it fits your needs, then you don't have to do anything. </b><br>To modify your exam enrollments, please check/uncheck boxes below and then click on 'Validate changes'." as info_exam_enrollment_by_default %}
                                 {{ info_exam_enrollment_by_default | safe }}
                             </td>
                         </tr>
@@ -86,14 +86,14 @@
                     <input type="hidden" name="current_number_session" value="{{ current_number_session }}"/>
                     <table class="table table-striped table-hover table-bordered" id="table_exam_enrollment_choice">
                         <tr>
-                            <th>{% trans 'course' %}</th>
-                            <th>{% trans 'title' %}</th>
-                            <th>{% trans 'ects' %}</th>
-                            <th>{% trans 'inscr' %}</th>
-                            <th {% if current_number_session >= 1 %} colspan="2" {% endif %}  class="text-nowrap">{% trans 'jan' %} *</th>
-                            <th {% if current_number_session >= 2 %} colspan="2" {% endif %}  class="text-nowrap">{% trans 'june' %} *</th>
-                            <th {% if current_number_session >= 3 %} colspan="2" {% endif %} class="text-nowrap">{% trans 'sept' %} *</th>
-                            <th>{% trans 'credited' %}</th>
+                            <th>{% trans 'Course' %}</th>
+                            <th>{% trans 'Title' %}</th>
+                            <th>{% trans 'ECTS' %}</th>
+                            <th>{% trans 'Inscr.' %}</th>
+                            <th {% if current_number_session >= 1 %} colspan="2" {% endif %}  class="text-nowrap">{% trans 'Jan.' %} *</th>
+                            <th {% if current_number_session >= 2 %} colspan="2" {% endif %}  class="text-nowrap">{% trans 'June' %} *</th>
+                            <th {% if current_number_session >= 3 %} colspan="2" {% endif %} class="text-nowrap">{% trans 'Sept.' %} *</th>
+                            <th>{% trans 'Credited' %}</th>
                         </tr>
                         {% for exam_enrol in exam_enrollments %}
                             <tr>
@@ -166,14 +166,14 @@
                         <table>
                             <tr>
                                 <td style="padding-right:12px;"><i class="fa fa-info-circle" style="font-size:250%" aria-hidden="true"></i></td>
-                                <td>{% trans 'message_exam_enrolment_state' %} <a href="{% url 'performance_student_by_acronym_and_year' program.acronym|replace_slash_to__ academic_year.year%}"><i>{% trans 'message_exam_enrolment_state_link_label' %}</i></a>.</td>
+                                <td>{% trans 'You can see the state of all your exam enrollments in your ' %} <a href="{% url 'performance_student_by_acronym_and_year' program.acronym|replace_slash_to__ academic_year.year%}"><i>{% trans 'scoresheet' %}</i></a>.</td>
                             </tr>
                         </table>
                     </div>
 
                     <div class="text-center">
                         <button class="btn btn-primary" id="bt_validate_exam_enrol_form" type="submit">
-                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> {% trans 'validate_changes' %}</button>
+                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> {% trans 'Validate changes' %}</button>
                     </div>
                 </form>
 
@@ -183,30 +183,30 @@
 
                 <div class="panel panel-default" >
                     <div class="panel-body" id="body_legend_explanation">
-                        <b>{% trans 'legend'%}</b>
+                        <b>{% trans 'Legend'%}</b>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_p' %}</div>
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_i' %}</div>
+                                <div class="col-md-6">{% trans "P - Partial exam" %}</div>
+                                <div class="col-md-6">{% trans 'I - First enrollment' %}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_y' %}</div>
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_j' %}</div>
+                                <div class="col-md-6">{% trans "Y - Second enrollment" %}</div>
+                                <div class="col-md-6">{% trans "J - Score's adjournment from January to September" %}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_r' %}</div>
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_b' %}</div>
+                                <div class="col-md-6">{% trans "R - Score's adjournment from last session exam" %}</div>
+                                <div class="col-md-6">{% trans 'B - Credit' %}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_t' %}</div>
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_v' %}</div>
+                                <div class="col-md-6">{% trans "T - Score result from a test" %}</div>
+                                <div class="col-md-6">{% trans "V - Satifactory evaluation (score doesn't matter)" %}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_w' %}</div>
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_d' %}</div>
+                                <div class="col-md-6">{% trans "W - Unsatisfactory evaluation (score doesn't matter)" %}</div>
+                                <div class="col-md-6">{% trans 'D - Dispensation' %}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">{% trans 'legend_exam_enrol_x' %}</div>
+                                <div class="col-md-6">{% trans "X - Law and administrative penalty" %}</div>
                                 <div class="col-md-6"></div>
                             </div>
                         </div>
@@ -264,7 +264,7 @@
                         }, delay);
                     }
                     else {
-                        show_message_in_container(status_message, "{% trans 'form_unavailable' %}");
+                        show_message_in_container(status_message, "{% trans 'Form unavailable' %}");
                         set_class(message_box, "alert alert-warning");
                         show(message_box, 'block');
                     }
